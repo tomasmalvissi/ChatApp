@@ -1,5 +1,5 @@
 using ChatApp.Server.Data;
-using ChatApp.Server.Models;
+using ChatApp.Shared;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +26,8 @@ namespace ChatApp.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -75,6 +77,7 @@ namespace ChatApp.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/signalRHub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }
