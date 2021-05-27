@@ -1,3 +1,4 @@
+using ChatApp.Client.Managers;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MudBlazor.Services;
+using MudBlazor;
 
 namespace ChatApp.Client
 {
@@ -25,7 +28,8 @@ namespace ChatApp.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ChatApp.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
-
+            builder.Services.AddTransient<IChatManager, ChatManager>();
+            builder.Services.AddMudServices(c => { c.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight; });
             await builder.Build().RunAsync();
         }
     }

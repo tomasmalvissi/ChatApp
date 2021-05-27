@@ -9,3 +9,11 @@
 @using Microsoft.JSInterop
 @using ChatApp.Client
 @using ChatApp.Client.Shared
+@using MudBlazor
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jsRuntime
+@inject ISnackbar _snackBar
+@inject AuthenticationStateProvider _stateProvider;
+
+@using ChatApp.Client.Managers
+@inject IChatManager _chatManager
